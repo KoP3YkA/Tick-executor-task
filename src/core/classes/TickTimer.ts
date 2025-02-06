@@ -1,4 +1,5 @@
 import {BaseTick} from "./BaseTick";
+import {BaseTickType} from "../types/BaseTickType";
 
 /**
  * Class for managing a single delayed task execution with an optional cancellation mechanism.
@@ -15,7 +16,7 @@ export class TickTimer {
      * @param {boolean} [forceStart=true] If true, the task will start immediately.
      */
     public constructor(
-        private timeoutTime : number | BaseTick,
+        private timeoutTime : BaseTickType,
         private run : () => void,
         private forceStart : boolean = true,
     ) {
@@ -28,7 +29,7 @@ export class TickTimer {
      * @returns {number} The integer representation of the time.
      */
     private getInteger(t: number | BaseTick) : number {
-        return t instanceof BaseTick ? t.toInteger() : t;
+        return t instanceof BaseTick ? t.calculate() : t;
     }
 
     /**

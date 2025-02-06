@@ -1,25 +1,24 @@
 /**
  * Base class representing a generic time unit, which can be multiplied by a factor and used to calculate an integer value.
  */
-export abstract class BaseTick {
-    /**
-     * Multiplier factor for the time.
-     * @abstract
-     */
-    public abstract multiply : number;
+export class BaseTick {
 
-    /**
-     * Time value.
-     * @abstract
-     */
-    public abstract time : number;
+    public static CLOCK_CYCLE : BaseTick = new BaseTick(1, 1);
+    public static TICK = (count: number) => new BaseTick(count, 50);
+    public static SECOND = (count: number) => new BaseTick(count, 1000);
+    public static MINUTE = (count: number) => new BaseTick(count, 1000 * 60);
+    public static HOUR = (count: number) => new BaseTick(count, 1000 * 60 * 60);
+    public static DAY = (count: number) => new BaseTick(count, 1000 * 60 * 60 * 24);
 
-    /**
-     * Calculates the integer value by multiplying the time with the multiplier.
-     * @returns {number} The resulting integer value.
-     */
-    public toInteger() : number {
-        return this.multiply * this.time;
+    // ---------------------------------------------
+
+    public constructor(
+        public count : number,
+        public multiply : number,
+    ) {}
+
+    public calculate() : number {
+        return this.count * this.multiply;
     }
 
 }

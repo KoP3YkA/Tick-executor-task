@@ -1,5 +1,4 @@
-export * from './core/classes/Tick'
-export * from './core/classes/Second'
 export * from './core/classes/BaseTick'
 export * from './core/classes/TickExecutorTask'
 export * from './core/classes/TickTimer'
+export * from './core/types/BaseTickType'

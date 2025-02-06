@@ -1,4 +1,5 @@
 import {BaseTick} from "./BaseTick";
+import {BaseTickType} from "../types/BaseTickType";
 
 /**
  * Class that manages a periodic task execution with a specified count and duration.
@@ -17,10 +18,10 @@ export class TickExecutorTask {
      * @param {number | BaseTick} [duration] The maximum duration the task will run (optional).
      */
     public constructor(
-        private count: number | BaseTick,
+        private count: BaseTickType,
         private run: (stop: () => void) => void,
         private forceStart: boolean = true,
-        private duration?: number | BaseTick,
+        private duration?: BaseTickType,
     ) {
         if (forceStart) this.start();
     }
@@ -31,7 +32,7 @@ export class TickExecutorTask {
      * @returns {number} The integer representation of the time.
      */
     private getInteger(t: number | BaseTick) : number {
-        return t instanceof BaseTick ? t.toInteger() : t;
+        return t instanceof BaseTick ? t.calculate() : t;
     }
 
     /**
@@ -45,7 +46,13 @@ export class TickExecutorTask {
         this.timeout = timeout[Symbol.toPrimitive]();
 
         if (this.duration) {
-            setTimeout(this.stop, this.getInteger(this.duration))
+            new Promise<void>((resolve) => {
+                setTimeout(() => {
+                    resolve();
+                }, this.getInteger(this.duration as BaseTickType));
+            }).then(() => {
+                this.stop();
+            });
         }
     }
 
