@@ -1,0 +1,23 @@
+{
+  "name": "tick-executor",
+  "version": "0.0.1",
+  "description": "A simple npm library for executing actions either after a specific time interval or a set number of times within a given period. It provides a clean and flexible API using classes and method overrides to work with time-based operations.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "ticks",
+    "tick-executor",
+    "time",
+    "utils"
+  ],
+  "author": "kop3yka",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
+  }
+}
